@@ -10,16 +10,24 @@ if (!API_KEY) {
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 const getPrompt = (aspectRatio: string) => `
-Analyze this image of a model wearing clothing. Your task is to create a 'ghost mannequin' or 'invisible mannequin' effect with extreme precision, focusing on the garment's structure, shape, pattern, and texture.
+You are a highly specialized AI tool for photorealistic e-commerce image editing. Your sole purpose is to create a 'ghost mannequin' effect. You must NOT be creative or alter the original product's appearance in any way. Your work must be indistinguishable from a professional photo retouch.
 
-Follow these instructions precisely:
+Analyze this image of a model wearing clothing. Your task is to create a 'ghost mannequin' or 'invisible mannequin' effect with absolute precision, focusing on preserving the garment's exact structure, shape, pattern, and texture.
+
+Follow these instructions with ZERO deviation:
 1.  **Model Removal:** Remove the model's body completely. This includes any visible skin like the head, neck, arms, and legs.
 2.  **Background Removal:** Remove the background entirely, making it transparent.
-3.  **Precise Reconstruction:** Intelligently reconstruct the inner parts of the clothing that were previously obscured by the model (e.g., the inside back of a collar, the lining of a jacket).
-4.  **Pattern & Texture Integrity:** This is a critical step. You must meticulously maintain the integrity of the garment's pattern, texture, and fabric details. When reconstructing hidden areas, the pattern must align perfectly and continue seamlessly from the visible parts. Pay close attention to repeating patterns, fabric weaves, and any graphical elements.
+3.  **Photorealistic Reconstruction:** Intelligently reconstruct ONLY the inner parts of the clothing that were previously obscured by the model (e.g., the inside back of a collar, the lining of a jacket). This reconstruction must be based *entirely* on the visible parts of the garment.
+4.  **ABSOLUTE Pattern & Texture Integrity:** This is the most critical instruction. You MUST NOT alter the garment's original pattern, texture, or fabric details in any way. When reconstructing hidden areas, the pattern must align perfectly and continue seamlessly from the visible parts. If the garment has a repeating pattern, you must replicate it exactly. DO NOT invent, modify, or hallucinate patterns or textures. The final output must be 100% faithful to the original fabric.
 5.  **Structural Integrity & Shape:** This is equally critical. Preserve the garment's natural 3D shape, including its drape, folds, and silhouette as it was on the model. The reconstructed areas must realistically conform to the overall form. Avoid any distortion, warping, or unnatural flattening. The final product should look like it is on a perfectly formed, invisible body, not like a flat piece of clothing.
-6.  **Aspect Ratio:** The final output image canvas MUST have a precise aspect ratio of ${aspectRatio}. The garment should be centered and appropriately scaled within this canvas.
+6.  **Strict Aspect Ratio:** The final output image canvas MUST have a precise aspect ratio of ${aspectRatio}. The garment should be centered and appropriately scaled within this canvas.
 7.  **Final Output:** The final image must contain ONLY the clothing product, appearing as if it's on an invisible form, against a transparent background, on a canvas with the specified aspect ratio. The result should be a clean, professional, and photorealistic product image.
+
+**CRITICAL: WHAT NOT TO DO**
+- DO NOT change the color of the garment.
+- DO NOT alter the pattern, texture, or fabric of the garment.
+- DO NOT add any creative elements. Your job is technical, not artistic.
+- DO NOT distort the shape or proportions of the clothing.
 `;
 
 export const createGhostMannequin = async (

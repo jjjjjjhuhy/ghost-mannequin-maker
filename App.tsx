@@ -19,6 +19,18 @@ interface ImageJob {
   error: string | null;
 }
 
+const getAspectRatioClass = (ratio: AspectRatio): string => {
+  const mapping: Record<AspectRatio, string> = {
+    '1:1': 'aspect-square',
+    '3:4': 'aspect-[3/4]',
+    '4:3': 'aspect-[4/3]',
+    '9:16': 'aspect-[9/16]',
+    '16:9': 'aspect-[16/9]',
+  };
+  return mapping[ratio] || 'aspect-square';
+};
+
+
 const App: React.FC = () => {
   const [jobs, setJobs] = useState<ImageJob[]>([]);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
@@ -141,7 +153,7 @@ const App: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {jobs.map(job => (
                   <div key={job.id} className="bg-gray-800/50 rounded-xl shadow-lg overflow-hidden border border-gray-700/50 flex flex-col">
-                    <div className="relative aspect-w-1 aspect-h-1 w-full">
+                    <div className={`relative w-full ${getAspectRatioClass(aspectRatio)}`}>
                         <img
                             src={job.generatedImageUrl || job.originalPreviewUrl}
                             alt={job.status === 'completed' ? 'Generated' : 'Original'}

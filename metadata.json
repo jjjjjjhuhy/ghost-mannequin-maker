@@ -1,0 +1,5 @@
+{
+  "name": "Ghost Mannequin AI",
+  "description": "Upload an image of a model wearing clothing to automatically remove the model and background, creating a professional 'ghost mannequin' effect for your product photos.",
+  "requestFramePermissions": []
+}
